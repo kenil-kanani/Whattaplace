@@ -1,8 +1,6 @@
 
-import LocationGrid from '@/components/LocationGrid';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <LocationGrid />
-  );
+  redirect('/all-spaces');
 }

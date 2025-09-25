@@ -1,25 +1,6 @@
 import Image from 'next/image';
 import { AiOutlineStar } from 'react-icons/ai';
-
-interface Location {
-  id: string;
-  title: string;
-  price: {
-    amount: number;
-    currency: string;
-    period: string;
-    fullText: string;
-  };
-  rating: {
-    value: number;
-    text: string;
-  };
-  description: string;
-  features: string[];
-  imageUrl: string;
-  imageAlt: string | null;
-  detailsLink: string;
-}
+import { Location } from '@/types';
 
 interface LocationCardProps {
   location: Location;
@@ -27,9 +8,9 @@ interface LocationCardProps {
 
 export default function LocationCard({ location }: LocationCardProps) {
   return (
-    <div className="bg-white rounded-4xl overflow-hidden hover:bg-platinum transition-all duration-300 cursor-pointer group p-3">
+    <div className="rounded-4xl max-w-[430px] overflow-hidden hover:bg-platinum transition-all duration-300 cursor-pointer group p-3">
 
-      <div className="relative h-56 w-full rounded-4xl overflow-hidden">
+      <div className="relative h-64 w-full rounded-4xl overflow-hidden">
         <Image
           src={location.imageUrl}
           alt={location.imageAlt || `${location.title} - Space for rent`}
