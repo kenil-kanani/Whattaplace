@@ -15,6 +15,7 @@ interface Location {
     text: string;
   };
   description: string;
+  features: string[];
   imageUrl: string;
   imageAlt: string | null;
   detailsLink: string;
@@ -40,7 +41,7 @@ export default function LocationCard({ location }: LocationCardProps) {
       
       <div className="mt-3">
 
-        <div className="flex justify-between items-start mb-2">
+        <div className="flex justify-between items-start mb-1">
           <h3 className="text-lg font-semibold text-black leading-tight flex-1 mr-2">
             {location.title}
           </h3>
@@ -57,7 +58,14 @@ export default function LocationCard({ location }: LocationCardProps) {
         </div>
         
         <p className="text-sm font-medium text-gray-medium leading-relaxed">
-          {location.description}
+          {location.features.map((feature, idx) => (
+            <span key={feature} className="text-sm font-medium text-gray-medium leading-relaxed">
+              {feature}
+              {idx !== location.features.length - 1 && (
+                <span className="inline-block mx-1 align-middle w-[5px] h-[5px] rounded-full bg-gray-dark"></span>
+              )}
+            </span>
+          ))}
         </p>
       </div>
     </div>
