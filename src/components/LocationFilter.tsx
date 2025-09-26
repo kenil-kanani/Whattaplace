@@ -60,7 +60,7 @@ export default function LocationFilter() {
       </div>
 
       {/* Location Hierarchy */}
-      <div className="space-y-1 max-h-80 overflow-y-auto">
+      <div className="space-y-1 max-h-80 overflow-y-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {isLoadingHierarchy ? (
           <div className="py-8 text-center text-sm text-gray-500">
             <div className="animate-pulse">Loading locations...</div>
