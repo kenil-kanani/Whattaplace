@@ -12,9 +12,9 @@ export default function CategoryPageClient({ category }: CategoryPageClientProps
   const { locationFilter } = useAppContext();
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-2">
       {/* Filter Sidebar */}
-      <div className="w-80 flex-shrink-0">
+      <div className="flex-shrink-0">
         <div className="sticky top-8">
           <LocationFilter />
         </div>

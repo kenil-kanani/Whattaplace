@@ -69,11 +69,11 @@ export default function SpacesGrid({ category, locationFilters }: SpacesGridProp
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-wrap gap-6 items-center">
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="bg-white rounded-4xl overflow-hidden p-3 animate-pulse"
+            className="bg-white rounded-4xl overflow-hidden p-3 animate-pulse flex-1 min-w-[300px] max-w-[400px]"
           >
             <div className="h-56 bg-gray-200 rounded-4xl mb-3"></div>
             <div className="space-y-2">
@@ -110,12 +110,13 @@ export default function SpacesGrid({ category, locationFilters }: SpacesGridProp
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="flex flex-wrap gap-6 items-center justify-center">
       {locations.map((location: Location) => (
-        <SpacesCard 
-          key={location.id} 
-          location={location} 
-        />
+        <div key={location.id} className="flex-1 min-w-[300px] max-w-[400px]">
+          <SpacesCard 
+            location={location} 
+          />
+        </div>
       ))}
     </div>
   );

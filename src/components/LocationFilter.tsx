@@ -25,7 +25,7 @@ export default function LocationFilter() {
   } = locationFilter;
 
   return (
-    <div className="bg-white rounded-4xl p-4 max-w-[430px]">
+    <div className="bg-white rounded-4xl p-4 mt-3 max-w-[250px]">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-black">Location</h3>
