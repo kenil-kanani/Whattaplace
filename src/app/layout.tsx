@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, DM_Sans, Poppins, Work_Sans } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { AppProvider } from "@/contexts/AppContext";
 
@@ -42,9 +43,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${dmSans.variable} ${poppins.variable} ${workSans.variable} antialiased`}
       >
-        <AppProvider>
-          {children}
-        </AppProvider>
+        <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+          <AppProvider>
+            {children}
+          </AppProvider>
+        </Suspense>
       </body>
     </html>
   );

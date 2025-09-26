@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import SearchPageHeroSection from '@/components/SearchPageHeroSection';
 import CategoryFilter from '@/components/CategoryFilter';
 import CategoryPageClient from '@/components/CategoryPageClient';
@@ -25,7 +26,9 @@ export default async function CategoryPage({ params }: PageProps) {
           description={getCategoryDescription(category)}
         />
         <CategoryFilter activeCategory={category} />
-        <CategoryPageClient category={category} />
+        <Suspense fallback={<div className="flex justify-center items-center py-8">Loading...</div>}>
+          <CategoryPageClient category={category} />
+        </Suspense>
       </div>
     </div>
   );
