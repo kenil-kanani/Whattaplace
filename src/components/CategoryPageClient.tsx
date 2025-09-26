@@ -17,8 +17,8 @@ export default function CategoryPageClient({ category }: CategoryPageClientProps
       {/* Filter Sidebar */}
       <div className="w-full lg:w-auto lg:flex-shrink-0">
         <div className="lg:sticky lg:top-8 space-y-4">
-          <LocationFilter />
           <PricingFilter />
+          <LocationFilter />
         </div>
       </div>
 
