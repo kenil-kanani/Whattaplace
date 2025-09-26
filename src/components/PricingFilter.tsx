@@ -22,14 +22,14 @@ export default function PricingFilter({ onFilterChange }: PricingFilterProps) {
   }, [filters, onFilterChange]);
 
   return (
-    <div className="bg-white rounded-4xl p-4 mt-3 max-w-[250px]">
+    <div className="bg-gray-50/80 border border-gray-200/60 rounded-2xl p-5 max-w-[250px] backdrop-blur-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-black">Price</h3>
+        <h3 className="font-semibold text-gray-800">Price</h3>
         {hasActiveFilters && (
           <button
             onClick={clearAllFilters}
-            className="text-sm text-gray-medium hover:text-black"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
             Clear
           </button>
@@ -41,15 +41,15 @@ export default function PricingFilter({ onFilterChange }: PricingFilterProps) {
         {priceRangeOptions.map((range) => (
           <label
             key={range.value}
-            className="flex items-center space-x-2 cursor-pointer py-1 hover:bg-gray-50 rounded-lg"
+            className="flex items-center space-x-2 cursor-pointer py-1 hover:bg-white/40 rounded-lg transition-colors"
           >
             <input
               type="checkbox"
               checked={filters.priceRanges.has(range.value)}
               onChange={(e) => handlePriceRangeChange(range.value, e.target.checked)}
-              className="w-4 h-4 rounded border-gray-300"
+              className="w-4 h-4 rounded border-gray-300 text-gray-600 focus:ring-gray-400/20"
             />
-            <span className="text-sm text-gray-700">{range.label}</span>
+            <span className="text-sm text-gray-600">{range.label}</span>
           </label>
         ))}
       </div>

@@ -25,14 +25,14 @@ export default function LocationFilter() {
   } = locationFilter;
 
   return (
-    <div className="bg-white rounded-4xl p-4 mt-3 max-w-[250px]">
+    <div className="bg-gray-50/80 border border-gray-200/60 rounded-2xl p-5 mt-3 max-w-[250px] backdrop-blur-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-black">Location</h3>
+        <h3 className="font-semibold text-gray-800">Location</h3>
         {hasActiveFilters && !isLoadingHierarchy && (
           <button
             onClick={clearAllFilters}
-            className="text-sm text-gray-medium hover:text-black"
+            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
           >
             Clear
           </button>
@@ -47,12 +47,12 @@ export default function LocationFilter() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           disabled={isLoadingHierarchy}
-          className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
+          className="w-full px-3 py-2 border border-gray-300/50 rounded-lg text-sm focus:outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400/20 disabled:bg-gray-100/50 disabled:cursor-not-allowed bg-white/70 backdrop-blur-sm"
         />
         {searchQuery && !isLoadingHierarchy && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
           >
             ×
           </button>
@@ -78,10 +78,10 @@ export default function LocationFilter() {
           filteredLocationHierarchy.map((countryData) => (
             <div key={countryData.country}>
               {/* Country Level */}
-              <div className="flex items-center space-x-2 py-2 hover:bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2 py-2 hover:bg-white/40 rounded-lg transition-colors">
                 <button
                   onClick={() => toggleCountryExpansion(countryData.country)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {expandedCountries.has(countryData.country) ? 
                     <HiChevronDown className="w-4 h-4" /> : 
@@ -100,7 +100,7 @@ export default function LocationFilter() {
                     onChange={(e) => handleCountryChange(countryData.country, e.target.checked)}
                     className="w-4 h-4 rounded border-gray-300"
                   />
-                  <span className="text-sm font-medium text-black">{countryData.country}</span>
+                  <span className="text-sm font-medium text-gray-800">{countryData.country}</span>
                 </label>
               </div>
 
@@ -109,10 +109,10 @@ export default function LocationFilter() {
                 <div className="ml-6 space-y-1">
                   {countryData.states.map((stateData) => (
                     <div key={stateData.state}>
-                      <div className="flex items-center space-x-2 py-1 hover:bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-2 py-1 hover:bg-white/40 rounded-lg transition-colors">
                         <button
                           onClick={() => toggleStateExpansion(`${countryData.country}-${stateData.state}`)}
-                          className="text-gray-400 hover:text-gray-600"
+                          className="text-gray-400 hover:text-gray-600 transition-colors"
                         >
                           {expandedStates.has(`${countryData.country}-${stateData.state}`) ? 
                             <HiChevronDown className="w-4 h-4" /> : 
@@ -131,7 +131,7 @@ export default function LocationFilter() {
                             onChange={(e) => handleStateChange(countryData.country, stateData.state, e.target.checked)}
                             className="w-4 h-4 rounded border-gray-300"
                           />
-                          <span className="text-sm text-gray-700">{stateData.state}</span>
+                          <span className="text-sm text-gray-600">{stateData.state}</span>
                         </label>
                       </div>
 
@@ -139,14 +139,14 @@ export default function LocationFilter() {
                       {expandedStates.has(`${countryData.country}-${stateData.state}`) && (
                         <div className="ml-6 space-y-1">
                           {stateData.cities.map((city) => (
-                            <label key={city} className="flex items-center space-x-2 cursor-pointer py-1 hover:bg-gray-50 rounded-lg">
+                            <label key={city} className="flex items-center space-x-2 cursor-pointer py-1 hover:bg-white/40 rounded-lg transition-colors">
                               <input
                                 type="checkbox"
                                 checked={filters.cities.has(city)}
                                 onChange={(e) => handleCityChange(city, e.target.checked)}
                                 className="w-4 h-4 rounded border-gray-300"
                               />
-                              <span className="text-sm text-gray-600">{city}</span>
+                              <span className="text-sm text-gray-500">{city}</span>
                             </label>
                           ))}
                         </div>
