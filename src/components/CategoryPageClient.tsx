@@ -13,17 +13,17 @@ export default function CategoryPageClient({ category }: CategoryPageClientProps
   const { locationFilter, pricingFilter } = useAppContext();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
       {/* Filter Sidebar */}
-      <div className="flex-shrink-0">
-        <div className="sticky top-8 space-y-4">
+      <div className="w-full lg:w-auto lg:flex-shrink-0">
+        <div className="lg:sticky lg:top-8 space-y-4">
           <LocationFilter />
           <PricingFilter />
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
         <SpacesGrid 
           category={category} 
           locationFilters={locationFilter.filters}
