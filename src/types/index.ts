@@ -18,6 +18,30 @@ export interface Location {
   imageAlt: string | null;
   detailsLink: string;
   sourceFile: string;
+  country?: string;
+  state?: string;
+  city?: string;
+}
+
+export interface LocationHierarchy {
+  country: string;
+  states: {
+    state: string;
+    cities: string[];
+  }[];
+}
+
+export interface LocationFilterState {
+  countries: Set<string>;
+  states: Set<string>;
+  cities: Set<string>;
+}
+
+export interface LocationFilterProps {
+  onFilterChange?: (filters: LocationFilterState) => void;
+  locationHierarchy?: LocationHierarchy[];
+  initialFilters?: LocationFilterState;
+  isLoading?: boolean;
 }
 
 export interface ApiResponse<T> {
@@ -25,6 +49,13 @@ export interface ApiResponse<T> {
   data: T;
   total?: number;
   error?: string;
+}
+
+export interface LocationFilterParams {
+  category?: string;
+  countries?: string;
+  states?: string;
+  cities?: string;
 }
 
 export const VALID_CATEGORIES = [

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, DM_Sans, Poppins, Work_Sans } from "next/font/google";
 import "./globals.css";
+import { AppProvider } from "@/contexts/AppContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,7 +42,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${dmSans.variable} ${poppins.variable} ${workSans.variable} antialiased`}
       >
-        {children}
+        <AppProvider>
+          {children}
+        </AppProvider>
       </body>
     </html>
   );

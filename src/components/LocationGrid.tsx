@@ -2,16 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import LocationCard from './LocationCard';
-import { Location, ApiResponse } from '@/types';
+import { Location, ApiResponse, LocationFilterState } from '@/types';
 
 interface LocationGridProps {
   category: string;
+  locationFilters?: LocationFilterState;
 }
 
-export default function LocationGrid({ category }: LocationGridProps) {
+export default function LocationGrid({ category, locationFilters }: LocationGridProps) {
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Create stable string representations of the filters for dependency comparison
+  const countriesString = locationFilters ? Array.from(locationFilters.countries).sort().join(',') : '';
+  const statesString = locationFilters ? Array.from(locationFilters.states).sort().join(',') : '';
+  const citiesString = locationFilters ? Array.from(locationFilters.cities).sort().join(',') : '';
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -19,7 +25,26 @@ export default function LocationGrid({ category }: LocationGridProps) {
         setLoading(true);
         setError(null);
         
-        const response = await fetch(`/api/spaces?category=${category}`);
+        // Build query parameters
+        const params = new URLSearchParams();
+        params.append('category', category);
+        
+        // Add location filter parameters if they exist
+        if (locationFilters) {
+          const { countries, states, cities } = locationFilters;
+          
+          if (countries.size > 0) {
+            params.append('countries', Array.from(countries).join(','));
+          }
+          if (states.size > 0) {
+            params.append('states', Array.from(states).join(','));
+          }
+          if (cities.size > 0) {
+            params.append('cities', Array.from(cities).join(','));
+          }
+        }
+        
+        const response = await fetch(`/api/spaces?${params.toString()}`);
         if (!response.ok) {
           throw new Error('Failed to fetch locations');
         }
@@ -39,7 +64,8 @@ export default function LocationGrid({ category }: LocationGridProps) {
     };
 
     fetchLocations();
-  }, [category]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, countriesString, statesString, citiesString]);
 
   if (loading) {
     return (
@@ -75,17 +101,17 @@ export default function LocationGrid({ category }: LocationGridProps) {
     );
   }
 
-  if (locations.length === 0) {
+  if (locations.length === 0 && !loading) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">No spaces found for this category.</p>
+        <p className="text-gray-500">No spaces found for this category or selected filters.</p>
       </div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {locations.map((location) => (
+      {locations.map((location: Location) => (
         <LocationCard 
           key={location.id} 
           location={location} 

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import HeroSection from '@/components/HeroSection';
 import CategoryNav from '@/components/CategoryNav';
-import LocationGrid from '@/components/LocationGrid';
+import CategoryPageContent from '@/components/CategoryPageContent';
 
 interface PageProps {
   params: Promise<{
@@ -60,7 +60,7 @@ export default async function CategoryPage({ params }: PageProps) {
           description={categoryDescriptions[category]}
         />
         <CategoryNav activeCategory={category} />
-        <LocationGrid category={category} />
+        <CategoryPageContent category={category} />
       </div>
     </div>
   );
