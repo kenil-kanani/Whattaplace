@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import SearchPageHeroSection from '@/components/SearchPageHeroSection';
 import CategoryFilter from '@/components/CategoryFilter';
-import CategoryPageContent from '@/components/CategoryPageContent';
+import CategoryPageClient from '@/components/CategoryPageClient';
 
 interface PageProps {
   params: Promise<{
@@ -60,7 +60,7 @@ export default async function CategoryPage({ params }: PageProps) {
           description={categoryDescriptions[category]}
         />
         <CategoryFilter activeCategory={category} />
-        <CategoryPageContent category={category} />
+        <CategoryPageClient category={category} />
       </div>
     </div>
   );

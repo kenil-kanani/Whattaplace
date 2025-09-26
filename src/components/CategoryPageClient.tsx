@@ -4,11 +4,11 @@ import SpacesGrid from './SpacesGrid';
 import LocationFilter from './LocationFilter';
 import { useAppContext } from '@/contexts/AppContext';
 
-interface CategoryPageContentProps {
+interface CategoryPageClientProps {
   category: string;
 }
 
-export default function CategoryPageContent({ category }: CategoryPageContentProps) {
+export default function CategoryPageClient({ category }: CategoryPageClientProps) {
   const { locationFilter } = useAppContext();
 
   return (
