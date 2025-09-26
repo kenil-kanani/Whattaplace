@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import spacesData from '@/lib/data/all-locations.json';
+import { getCategorySourceFiles } from '@/config/categories';
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,22 +16,8 @@ export async function GET(request: NextRequest) {
     
     // Filter by category if specified
     if (category && category !== 'all-spaces') {
-      const sourceFileMapping: { [key: string]: string[] } = {
-        'photoshoot': [
-          'best-location-for-photoshoot-near-you.html',
-          'best-photoshoot-locations.html'
-        ],
-        'video-shoot': ['video-shoot-locations.html'],
-        'workshops': ['workshops-spaces.html'],
-        'podcast': ['podcast-spaces.html'],
-        'dance-shoot': ['best-locations-performance-shoots.html'],
-        'film-shoot': ['film-shoot-locations.html'],
-        'events': ['events-spaces.html'],
-        'exhibitions': ['exhibition-spaces.html']
-      };
-      
-      const targetSourceFiles = sourceFileMapping[category];
-      if (targetSourceFiles) {
+      const targetSourceFiles = getCategorySourceFiles(category);
+      if (targetSourceFiles.length > 0) {
         filteredSpaces = spacesData.locations.filter(location => 
           targetSourceFiles.includes(location.sourceFile)
         );

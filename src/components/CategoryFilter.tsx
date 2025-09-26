@@ -1,29 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface CategoryItem {
-  id: string;
-  label: string;
-  icon: string;
-}
+import { getAllCategories } from '@/config/categories';
 
 interface CategoryFilterProps {
   activeCategory: string;
 }
 
-const categories: CategoryItem[] = [
-  { id: 'all-spaces', label: 'All Spaces', icon: 'all-spaces.svg' },
-  { id: 'photoshoot', label: 'Photoshoot', icon: 'photo-shoot.svg' },
-  { id: 'video-shoot', label: 'Video Shoot', icon: 'video-shoot.svg' },
-  { id: 'workshops', label: 'Workshops', icon: 'workshops.svg' },
-  { id: 'podcast', label: 'Podcast', icon: 'podcast.svg' },
-  { id: 'dance-shoot', label: 'Dance shoot', icon: 'dance-shoot.svg' },
-  { id: 'film-shoot', label: 'Film Shoot', icon: 'film-shoot.svg' },
-  { id: 'events', label: 'Events', icon: 'events.svg' },
-  { id: 'exhibitions', label: 'Exhibitions', icon: 'exhibitions.svg' },
-];
-
 export default function CategoryFilter({ activeCategory }: CategoryFilterProps) {
+  const categories = getAllCategories();
+  
   return (
     <div className="flex flex-wrap justify-center gap-12 mb-20">
       {categories.map((category) => {

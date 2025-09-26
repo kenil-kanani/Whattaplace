@@ -58,16 +58,5 @@ export interface LocationFilterParams {
   cities?: string;
 }
 
-export const VALID_CATEGORIES = [
-  'all-spaces',
-  'photoshoot',
-  'video-shoot', 
-  'workshops',
-  'podcast',
-  'dance-shoot',
-  'film-shoot',
-  'events',
-  'exhibitions'
-] as const;
-
-export type CategoryType = typeof VALID_CATEGORIES[number];
+export { VALID_CATEGORIES } from '@/config/categories';
+export type { CategoryType } from '@/config/categories';
