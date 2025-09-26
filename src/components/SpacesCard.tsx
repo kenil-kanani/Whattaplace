@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { AiOutlineStar } from 'react-icons/ai';
 import { Location } from '@/types';
 
-interface LocationCardProps {
+interface SpacesCardProps {
   location: Location;
 }
 
-export default function LocationCard({ location }: LocationCardProps) {
+export default function SpacesCard({ location }: SpacesCardProps) {
   return (
     <div className="rounded-4xl max-w-[430px] overflow-hidden hover:bg-platinum transition-all duration-300 cursor-pointer group p-3">
 

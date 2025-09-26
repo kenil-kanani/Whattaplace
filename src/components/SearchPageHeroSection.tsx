@@ -1,9 +1,9 @@
-interface HeroSectionProps {
+interface SearchPageHeroSectionProps {
   title: string;
   description: string;
 }
 
-export default function HeroSection({ title, description }: HeroSectionProps) {
+export default function SearchPageHeroSection({ title, description }: SearchPageHeroSectionProps) {
   return (
     <div className="text-center mb-20">
       <h1 className="text-7xl font-bold text-black mb-8 tracking-tight">

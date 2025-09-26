@@ -7,7 +7,7 @@ interface CategoryItem {
   icon: string;
 }
 
-interface CategoryNavProps {
+interface CategoryFilterProps {
   activeCategory: string;
 }
 
@@ -23,7 +23,7 @@ const categories: CategoryItem[] = [
   { id: 'exhibitions', label: 'Exhibitions', icon: 'exhibitions.svg' },
 ];
 
-export default function CategoryNav({ activeCategory }: CategoryNavProps) {
+export default function CategoryFilter({ activeCategory }: CategoryFilterProps) {
   return (
     <div className="flex flex-wrap justify-center gap-12 mb-20">
       {categories.map((category) => {

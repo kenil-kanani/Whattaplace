@@ -1,15 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import LocationCard from './LocationCard';
+import SpacesCard from './SpacesCard';
 import { Location, ApiResponse, LocationFilterState } from '@/types';
 
-interface LocationGridProps {
+interface SpacesGridProps {
   category: string;
   locationFilters?: LocationFilterState;
 }
 
-export default function LocationGrid({ category, locationFilters }: LocationGridProps) {
+export default function SpacesGrid({ category, locationFilters }: SpacesGridProps) {
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -112,7 +112,7 @@ export default function LocationGrid({ category, locationFilters }: LocationGrid
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {locations.map((location: Location) => (
-        <LocationCard 
+        <SpacesCard 
           key={location.id} 
           location={location} 
         />

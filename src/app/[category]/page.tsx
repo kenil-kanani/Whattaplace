@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import HeroSection from '@/components/HeroSection';
-import CategoryNav from '@/components/CategoryNav';
+import SearchPageHeroSection from '@/components/SearchPageHeroSection';
+import CategoryFilter from '@/components/CategoryFilter';
 import CategoryPageContent from '@/components/CategoryPageContent';
 
 interface PageProps {
@@ -55,11 +55,11 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-[1440px] mx-auto px-6 py-20">
-        <HeroSection 
+        <SearchPageHeroSection 
           title={categoryTitles[category]}
           description={categoryDescriptions[category]}
         />
-        <CategoryNav activeCategory={category} />
+        <CategoryFilter activeCategory={category} />
         <CategoryPageContent category={category} />
       </div>
     </div>

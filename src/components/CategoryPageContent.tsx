@@ -1,6 +1,6 @@
 'use client';
 
-import LocationGrid from './LocationGrid';
+import SpacesGrid from './SpacesGrid';
 import LocationFilter from './LocationFilter';
 import { useAppContext } from '@/contexts/AppContext';
 
@@ -22,7 +22,7 @@ export default function CategoryPageContent({ category }: CategoryPageContentPro
 
       {/* Main Content */}
       <div className="flex-1">
-        <LocationGrid 
+        <SpacesGrid 
           category={category} 
           locationFilters={locationFilter.filters}
         />
