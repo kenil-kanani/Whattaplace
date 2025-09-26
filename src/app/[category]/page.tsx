@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import SearchPageHeroSection from '@/components/SearchPageHeroSection';
 import CategoryFilter from '@/components/CategoryFilter';
 import CategoryPageClient from '@/components/CategoryPageClient';
+import { VALID_CATEGORIES, CategoryType } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -9,19 +10,8 @@ interface PageProps {
   }>;
 }
 
-const validCategories = [
-  'all-spaces',
-  'photoshoot',
-  'video-shoot', 
-  'workshops',
-  'podcast',
-  'dance-shoot',
-  'film-shoot',
-  'events',
-  'exhibitions'
-];
 
-const categoryTitles: { [key: string]: string } = {
+const categoryTitles: Record<CategoryType, string> = {
   'all-spaces': 'All Spaces',
   'photoshoot': 'Photoshoot',
   'video-shoot': 'Video Shoot',
@@ -33,7 +23,7 @@ const categoryTitles: { [key: string]: string } = {
   'exhibitions': 'Exhibitions'
 };
 
-const categoryDescriptions: { [key: string]: string } = {
+const categoryDescriptions: Record<CategoryType, string> = {
   'all-spaces': 'Discover unique backdrops for Fashion shoots • Product photography • Brand campaigns • Portrait sessions • Lifestyle content • Editorial spreads and more...',
   'photoshoot': 'Discover unique backdrops for Fashion shoots • Product photography • Brand campaigns • Portrait sessions • Lifestyle content • Editorial spreads and more...',
   'video-shoot': 'Professional video production spaces • Content creation studios • Commercial filming locations • Interview setups and more...',
@@ -48,26 +38,28 @@ const categoryDescriptions: { [key: string]: string } = {
 export default async function CategoryPage({ params }: PageProps) {
   const { category } = await params;
   
-  if (!validCategories.includes(category)) {
+  if (!(VALID_CATEGORIES as readonly string[]).includes(category)) {
     notFound();
   }
+
+  const validCategory = category as CategoryType;
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-[1440px] mx-auto px-6 py-20">
         <SearchPageHeroSection 
-          title={categoryTitles[category]}
-          description={categoryDescriptions[category]}
+          title={categoryTitles[validCategory]}
+          description={categoryDescriptions[validCategory]}
         />
-        <CategoryFilter activeCategory={category} />
-        <CategoryPageClient category={category} />
+        <CategoryFilter activeCategory={validCategory} />
+        <CategoryPageClient category={validCategory} />
       </div>
     </div>
   );
 }
 
 export function generateStaticParams() {
-  return validCategories.map((category) => ({
+  return VALID_CATEGORIES.map((category) => ({
     category,
   }));
 }
