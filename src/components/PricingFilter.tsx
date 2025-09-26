@@ -3,7 +3,6 @@
 import React from 'react';
 import { useAppContext } from '@/contexts/AppContext';
 import { PricingFilterProps } from '@/types';
-import { HiCurrencyRupee } from 'react-icons/hi2';
 
 export default function PricingFilter({ onFilterChange }: PricingFilterProps) {
   const { pricingFilter } = useAppContext();
@@ -11,6 +10,8 @@ export default function PricingFilter({ onFilterChange }: PricingFilterProps) {
     filters,
     handlePriceRangeChange,
     priceRangeOptions,
+    clearAllFilters,
+    hasActiveFilters,
   } = pricingFilter;
 
   React.useEffect(() => {
@@ -21,33 +22,37 @@ export default function PricingFilter({ onFilterChange }: PricingFilterProps) {
   }, [filters, onFilterChange]);
 
   return (
-    <div className="bg-white rounded-4xl p-6 shadow-lg max-w-[430px] font-dm-sans">
-
-      <div className="flex items-center gap-3 mb-6">
-        <HiCurrencyRupee className="text-2xl text-purple-600" />
-        <h3 className="text-xl font-semibold text-gray-800">Price Filter</h3>
+    <div className="bg-white rounded-4xl p-4 mt-3 max-w-[250px]">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-black">Price</h3>
+        {hasActiveFilters && (
+          <button
+            onClick={clearAllFilters}
+            className="text-sm text-gray-medium hover:text-black"
+          >
+            Clear
+          </button>
+        )}
       </div>
 
-      <div className="mb-6">
-        <h4 className="text-sm font-medium text-gray-700 mb-3">Quick Ranges</h4>
-        <div className="space-y-2">
-          {priceRangeOptions.map((range) => (
-            <label
-              key={range.value}
-              className="flex items-center gap-3 p-2 rounded-xl hover:bg-purple-50 transition-colors duration-200 cursor-pointer"
-            >
-              <input
-                type="checkbox"
-                checked={filters.priceRanges.has(range.value)}
-                onChange={(e) => handlePriceRangeChange(range.value, e.target.checked)}
-                className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2"
-              />
-              <span className="text-sm text-gray-700 font-medium">{range.label}</span>
-            </label>
-          ))}
-        </div>
+      {/* Price Ranges */}
+      <div className="space-y-1">
+        {priceRangeOptions.map((range) => (
+          <label
+            key={range.value}
+            className="flex items-center space-x-2 cursor-pointer py-1 hover:bg-gray-50 rounded-lg"
+          >
+            <input
+              type="checkbox"
+              checked={filters.priceRanges.has(range.value)}
+              onChange={(e) => handlePriceRangeChange(range.value, e.target.checked)}
+              className="w-4 h-4 rounded border-gray-300"
+            />
+            <span className="text-sm text-gray-700">{range.label}</span>
+          </label>
+        ))}
       </div>
-      
     </div>
   );
 }

@@ -130,7 +130,7 @@ export default function SpacesGrid({ category, locationFilters, pricingFilters }
   }
 
   return (
-    <div className="flex flex-wrap gap-6 items-center justify-center">
+    <div className="flex flex-wrap gap-6 justify-center">
       {locations.map((location: Location) => (
         <div key={location.id} className="flex-1 min-w-[300px] max-w-[400px]">
           <SpacesCard 
