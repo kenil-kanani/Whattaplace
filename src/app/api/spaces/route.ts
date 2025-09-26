@@ -12,6 +12,9 @@ export async function GET(request: NextRequest) {
     const states = searchParams.get('states');
     const cities = searchParams.get('cities');
     
+    // Get pricing filter parameters
+    const priceRanges = searchParams.get('priceRanges');
+    
     let filteredSpaces = spacesData.locations;
     
     // Filter by category if specified
@@ -63,6 +66,35 @@ export async function GET(request: NextRequest) {
           }
           
           return matchesFilter;
+        });
+      }
+    }
+    
+    // Apply pricing filters if specified
+    if (priceRanges) {
+      const selectedPriceRanges = priceRanges.split(',').filter(r => r.trim());
+      
+      if (selectedPriceRanges.length > 0) {
+        filteredSpaces = filteredSpaces.filter((location) => {
+          const locationPrice = location.price.amount;
+          
+          // Check if location matches any of the selected price ranges
+          return selectedPriceRanges.some(range => {
+            switch (range) {
+              case 'under-2000':
+                return locationPrice < 2000;
+              case '2000-5000':
+                return locationPrice >= 2000 && locationPrice <= 5000;
+              case '5000-8000':
+                return locationPrice >= 5000 && locationPrice <= 8000;
+              case '8000-12000':
+                return locationPrice >= 8000 && locationPrice <= 12000;
+              case 'above-12000':
+                return locationPrice > 12000;
+              default:
+                return false;
+            }
+          });
         });
       }
     }

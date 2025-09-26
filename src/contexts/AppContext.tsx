@@ -2,10 +2,12 @@
 
 import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 import { useLocationFilter, UseLocationFilterReturn } from '@/hooks/useLocationFilter';
+import { usePricingFilter, UsePricingFilterReturn } from '@/hooks/usePricingFilter';
 import { LocationHierarchy, ApiResponse } from '@/types';
 
 interface AppContextType {
   locationFilter: UseLocationFilterReturn;
+  pricingFilter: UsePricingFilterReturn;
   locationHierarchy: LocationHierarchy[];
   isLoadingHierarchy: boolean;
   hierarchyError: string | null;
@@ -53,8 +55,11 @@ export function AppProvider({ children }: AppProviderProps) {
     isLoading: isLoadingHierarchy,
   });
 
+  const pricingFilter = usePricingFilter();
+
   const contextValue: AppContextType = {
     locationFilter,
+    pricingFilter,
     locationHierarchy,
     isLoadingHierarchy,
     hierarchyError,

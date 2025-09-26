@@ -51,11 +51,21 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
+export interface PricingFilterState {
+  priceRanges: Set<string>;
+}
+
+export interface PricingFilterProps {
+  onFilterChange?: (filters: PricingFilterState) => void;
+  initialFilters?: PricingFilterState;
+}
+
 export interface LocationFilterParams {
   category?: string;
   countries?: string;
   states?: string;
   cities?: string;
+  priceRanges?: string;
 }
 
 export { VALID_CATEGORIES } from '@/config/categories';

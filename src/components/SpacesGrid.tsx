@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import SpacesCard from './SpacesCard';
-import { Location, ApiResponse, LocationFilterState } from '@/types';
+import { Location, ApiResponse, LocationFilterState, PricingFilterState } from '@/types';
 
 interface SpacesGridProps {
   category: string;
   locationFilters?: LocationFilterState;
+  pricingFilters?: PricingFilterState;
 }
 
-export default function SpacesGrid({ category, locationFilters }: SpacesGridProps) {
+export default function SpacesGrid({ category, locationFilters, pricingFilters }: SpacesGridProps) {
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,12 +19,18 @@ export default function SpacesGrid({ category, locationFilters }: SpacesGridProp
   const countriesString = locationFilters ? Array.from(locationFilters.countries).sort().join(',') : '';
   const statesString = locationFilters ? Array.from(locationFilters.states).sort().join(',') : '';
   const citiesString = locationFilters ? Array.from(locationFilters.cities).sort().join(',') : '';
+  
+  // Create stable string representations for pricing filters
+  const priceRangesString = pricingFilters ? Array.from(pricingFilters.priceRanges).sort().join(',') : '';
 
   useEffect(() => {
     const fetchLocations = async () => {
       try {
         setLoading(true);
         setError(null);
+        
+        // Debug: Log the pricing filters
+        console.log('SpacesGrid - pricingFilters:', pricingFilters);
         
         // Build query parameters
         const params = new URLSearchParams();
@@ -44,7 +51,20 @@ export default function SpacesGrid({ category, locationFilters }: SpacesGridProp
           }
         }
         
-        const response = await fetch(`/api/spaces?${params.toString()}`);
+        // Add pricing filter parameters if they exist
+        if (pricingFilters) {
+          const { priceRanges } = pricingFilters;
+          
+          if (priceRanges.size > 0) {
+            params.append('priceRanges', Array.from(priceRanges).join(','));
+          }
+        }
+        
+        // Debug: Log the API URL
+        const apiUrl = `/api/spaces?${params.toString()}`;
+        console.log('SpacesGrid - API URL:', apiUrl);
+        
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Failed to fetch locations');
         }
@@ -65,7 +85,7 @@ export default function SpacesGrid({ category, locationFilters }: SpacesGridProp
 
     fetchLocations();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, countriesString, statesString, citiesString]);
+  }, [category, countriesString, statesString, citiesString, priceRangesString]);
 
   if (loading) {
     return (
